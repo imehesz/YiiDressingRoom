@@ -2,6 +2,13 @@
 
 class SiteController extends Controller
 {
+    public function init()
+    {
+        Yii::app()->theme = 'listening';
+        $this->renderPartial( 'themeselector' );
+        return parent::init();
+    }
+
 	/**
 	 * Declares class-based actions.
 	 */

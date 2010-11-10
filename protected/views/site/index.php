@@ -6,8 +6,8 @@
 
 <p>You may change the content of this page by modifying the following two files:</p>
 <ul>
-	<li>View file: <tt><?php echo __FILE__; ?></tt></li>
-	<li>Layout file: <tt><?php echo $this->getLayoutFile('main'); ?></tt></li>
+	<li>View file: <tt>A PHP file somewhere in the Yii folder structure</tt></li>
+	<li>Layout file: <tt>Another PHP file somewhere in the Yii folder structure</tt></li>
 </ul>
 
 <p>For more details on how to further develop this application, please read

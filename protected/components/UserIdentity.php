@@ -17,6 +17,9 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
+        // turning OFF the login feature for now
+        return false;
+
 		$users=array(
 			// username => password
 			'demo'=>'demo',
