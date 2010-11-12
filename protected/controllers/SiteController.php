@@ -4,8 +4,46 @@ class SiteController extends Controller
 {
     public function init()
     {
-        Yii::app()->theme = 'listening';
-        $this->renderPartial( 'themeselector' );
+		$session=new CHttpSession();
+		$session->open();
+
+		if( isset( $_POST['Theme'] ) )
+		{
+			// we have something, let's try to load id
+			$theme = Theme::model()->findByPk( $_POST['Theme']['id'] );
+			if( $theme )
+			{
+				// we're gonna search for a directory,
+				// but first we need to get the clean name
+				// of the Theme
+	    		$dirname = $this->makeStringPretty( $theme->name );
+
+				// so it's very cool so far, let's see if we 
+				// actually have this theme here
+				if( is_dir( YiiBase::getPathOfAlias( 'webroot' ) . '/themes/' . $dirname ) )
+				{
+					// we won, we have the theme, let's load it
+					$session['theme'] = $dirname;
+				}
+				else
+				{
+					$session['theme'] = null;
+				}
+
+				$session->close();
+			}
+		}
+
+		if( isset( $theme ) )
+		{
+        	$this->renderPartial( 'themeselector', array( 'theme' => $theme) );
+		}
+		else
+		{
+        	$this->renderPartial( 'themeselector' );
+		}
+
+		Yii::app()->theme = $session['theme'];
         return parent::init();
     }
 
@@ -106,5 +144,12 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+	public function makeStringPretty( $str )
+	{
+		$tmp = preg_replace('/\s+/', '_', $str ); // compress internal whitespace and replace with _
+		$tmp = preg_replace('/\W+/', '', $tmp ); // remove all non-alphanumeric chars 
+	    return strtolower(preg_replace('/\W-/', '', $tmp) );
 	}
 }
