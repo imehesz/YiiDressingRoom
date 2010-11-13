@@ -7,10 +7,20 @@ class SiteController extends Controller
 		$session=new CHttpSession();
 		$session->open();
 
-		if( isset( $_POST['Theme'] ) )
+		$theme = Theme::model()->findByPk( $session['themeID'] );
+
+		if( isset( $_POST['Theme'] ) || isset( $_GET['themeid'] ) )
 		{
 			// we have something, let's try to load id
-			$theme = Theme::model()->findByPk( $_POST['Theme']['id'] );
+			if( isset( $_POST['Theme'] ) )
+			{
+				$theme = Theme::model()->findByPk( $_POST['Theme']['id'] );
+			}
+			else
+			{
+				$theme = Theme::model()->findByPk( $_GET['themeid'] );
+			}
+
 			if( $theme )
 			{
 				// we're gonna search for a directory,
@@ -23,11 +33,11 @@ class SiteController extends Controller
 				if( is_dir( YiiBase::getPathOfAlias( 'webroot' ) . '/themes/' . $dirname ) )
 				{
 					// we won, we have the theme, let's load it
-					$session['theme'] = $dirname;
+					$session['themeID'] = $theme->id;
 				}
 				else
 				{
-					$session['theme'] = null;
+					$session['themeID'] = null;
 				}
 
 				$session->close();
@@ -36,6 +46,7 @@ class SiteController extends Controller
 
 		if( isset( $theme ) )
 		{
+			Yii::app()->theme = $this->makeStringPretty( $theme->name );
         	$this->renderPartial( 'themeselector', array( 'theme' => $theme) );
 		}
 		else
@@ -43,7 +54,6 @@ class SiteController extends Controller
         	$this->renderPartial( 'themeselector' );
 		}
 
-		Yii::app()->theme = $session['theme'];
         return parent::init();
     }
 

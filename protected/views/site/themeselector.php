@@ -32,12 +32,12 @@
 <div id="top-black-bar-wrapper">
     <div id="top-black-bar-inner">
         Welcome to the <strong>Yii Dressing Room!</strong> Please select a Theme to `wear` :)
-        <?php  echo CHtml::activeDropDownList( Theme::model(), 'id', CHtml::listData( Theme::model()->findAll( 'score=1000 ORDER BY `name`' ), 'id', 'name' ) ); ?>
+        <?php  echo isset( $theme ) ? CHtml::activeDropDownList( $theme, 'id', CHtml::listData( Theme::model()->findAll( 'score=1000 ORDER BY `name`' ), 'id', 'name' ) ) : CHtml::activeDropDownList( Theme::model(), 'id', CHtml::listData( Theme::model()->findAll( 'score=1000 ORDER BY `name`' ), 'id', 'name' ) ); ?>
 		<?php
 			echo CHtml::submitButton( 'change theme' );
 		?>
 		<?php if( isset( $theme ) ) : ?>
-		<a href="#" title="if you wanna download this theme">Download theme <?php echo strtoupper( $theme->name ); ?></a> - 
+		<a href="http://yiithemes.mehesz.net/theme/<?php echo $theme->id ?>" title="if you wanna download this theme">Download theme <?php echo strtoupper( $theme->name ); ?></a> - 
 		<?php endif; ?>
 		<a href="http://yiithemes.mehesz.net" title="just simply back to the main Yii Themes site">Back to Yii Themes</a>
     </div>
