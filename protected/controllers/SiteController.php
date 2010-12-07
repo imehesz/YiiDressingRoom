@@ -27,7 +27,7 @@ class SiteController extends Controller
 				// but first we need to get the clean name
 				// of the Theme
 	    		$dirname = ImHelp::stringToUrl( $theme->name );
-				echo "$dirname";
+
 				// so it's very cool so far, let's see if we 
 				// actually have this theme here
 				if( is_dir( YiiBase::getPathOfAlias( 'webroot' ) . '/themes/' . $dirname ) )
