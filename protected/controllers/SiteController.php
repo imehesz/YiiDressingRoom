@@ -26,8 +26,8 @@ class SiteController extends Controller
 				// we're gonna search for a directory,
 				// but first we need to get the clean name
 				// of the Theme
-	    		$dirname = $this->makeStringPretty( $theme->name );
-
+	    		$dirname = ImHelp::stringToUrl( $theme->name );
+				echo "$dirname";
 				// so it's very cool so far, let's see if we 
 				// actually have this theme here
 				if( is_dir( YiiBase::getPathOfAlias( 'webroot' ) . '/themes/' . $dirname ) )
@@ -46,7 +46,7 @@ class SiteController extends Controller
 
 		if( isset( $theme ) )
 		{
-			Yii::app()->theme = $this->makeStringPretty( $theme->name );
+			Yii::app()->theme = ImHelp::stringToUrl( $theme->name );
         	$this->renderPartial( 'themeselector', array( 'theme' => $theme) );
 		}
 		else
@@ -154,12 +154,5 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
-	}
-
-	public function makeStringPretty( $str )
-	{
-		$tmp = preg_replace('/\s+/', '_', $str ); // compress internal whitespace and replace with _
-		$tmp = preg_replace('/\W+/', '', $tmp ); // remove all non-alphanumeric chars 
-	    return strtolower(preg_replace('/\W-/', '', $tmp) );
 	}
 }

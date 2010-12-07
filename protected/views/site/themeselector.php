@@ -37,7 +37,7 @@
 			echo CHtml::submitButton( 'change theme' );
 		?>
 		<?php if( isset( $theme ) ) : ?>
-		<a href="http://yiithemes.mehesz.net/theme/<?php echo $theme->id ?>" title="if you wanna download this theme">Download theme <?php echo strtoupper( $theme->name ); ?></a> - 
+		<a href="http://yiithemes.mehesz.net/theme/<?php echo $theme->id ?>/<?php echo ImHelp::stringToUrl( $theme->name ); ?>" title="if you wanna download this theme">Download theme <?php echo strtoupper( $theme->name ); ?></a> - 
 		<?php endif; ?>
 		<a href="http://yiithemes.mehesz.net" title="just simply back to the main Yii Themes site">Back to Yii Themes</a>
     </div>
