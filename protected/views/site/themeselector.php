@@ -41,5 +41,20 @@
 		<?php endif; ?>
 		<a href="http://yiithemes.mehesz.net" title="just simply back to the main Yii Themes site">Back to Yii Themes</a>
     </div>
-</div>
 <?php $this->endWidget(); ?>
+	<hr />
+	<center>
+		<script type="text/javascript"><!--
+			google_ad_client = "ca-pub-1319358860215477";
+			/* Yii Dressing Room */
+			google_ad_slot = "7925383539";
+			google_ad_width = 728;
+			google_ad_height = 90;
+			//-->
+			</script>
+			<script type="text/javascript"
+			src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+		</script>
+	</center>
+
+</div>
